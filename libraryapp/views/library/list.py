@@ -43,10 +43,10 @@ def list_libraries(request):
             db_cursor.execute("""
             INSERT INTO libraryapp_library
             (
-                title, address,
+                title, address
             )
             VALUES (?, ?)
             """,
             (form_data['title'], form_data['address']))
 
-        return redirect(reverse('libraryapp:library'))
+        return redirect(reverse('libraryapp:libraries'))
