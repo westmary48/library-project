@@ -1,4 +1,6 @@
 import sqlite3
+from django.urls import reverse
+from django.shortcuts import redirect
 from django.shortcuts import render
 from libraryapp.models import Book
 from libraryapp.models import model_factory
@@ -50,9 +52,10 @@ def book_list(request):
         )
         VALUES (?, ?, ?, ?, ?, ?)
         """,
-        (form_data['title'], form_data['author'],
-            form_data['isbn'], form_data['year_published'],
+        (form_data['bookTitle'], form_data['Author'],
+            form_data['ISBNNumber'], form_data['YearPublished'],
             request.user.librarian.id, form_data["location"]))
 
         return redirect(reverse('libraryapp:books'))
+
 
