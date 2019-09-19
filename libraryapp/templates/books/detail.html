@@ -1,0 +1,16 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Library</title>
+  </head>
+  <body>
+    <h1>{{ book.bookTitle }}</h1>
+    <h2>By {{ book.Author }}</h2>
+
+    <div>Published in {{ book.YearPublished }}</div>
+    <div>ISBN: {{ book.ISBNNumber }}</div>
+  </body>
+</html>
+
