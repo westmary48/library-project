@@ -6,3 +6,4 @@ from .auth.logout import logout_user
 from .books.form import book_form
 from .library.form import library_form
 from .books.details import book_details
+from .library.details import library_details
