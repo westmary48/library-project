@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% extends 'shared/base.html' %}
 <!DOCTYPE html>
 <html>
 
@@ -6,9 +6,10 @@
     <meta charset="utf-8">
     <title>Library</title>
 </head>
-
+{% block content %}
 <body>
     <h1>Inventory Book</h1>
+  <a href="{% url 'libraryapp:book_form' %}">Add Book to Inventory</a>
 
     {% if book.id is not None %}
         <form action="{% url 'libraryapp:book' book.id %}" method="post">
@@ -37,7 +38,7 @@
             <select id="location" type="text" name="location">
                 {% for library in all_libraries %}
                 <option {% if library.id == book.location_id %}selected{% endif %} value="{{ library.id }}">
-                    {{ library.bookTitle }}</option>
+                    {{ library.title }}</option>
                 {% endfor %}
             </select>
         </fieldset>
@@ -51,5 +52,5 @@
 
     </form>
 </body>
-
+{% endblock %}
 </html>

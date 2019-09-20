@@ -6,11 +6,15 @@
     <title>Books</title>
   </head>
   <body>
+<section id="book-details">
     <h1>{{ book.bookTitle }}</h1>
     <h2>By {{ book.Author }}</h2>
 
     <div>Published in {{ book.YearPublished }}</div>
     <div>ISBN: {{ book.ISBNNumber }}</div>
+    <div>Located in the {{ book.location.title }}</div>
+    <div>Registered by {{ book.librarian.first_name }} {{ book.librarian.last_name }}</div>
+</section>
 <form action="{% url 'libraryapp:book' book.id %}" method="POST">
     {% csrf_token %}
     <input type="hidden" name="actual_method" value="DELETE">
