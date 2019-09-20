@@ -1,4 +1,5 @@
-{% load staticfiles %}
+{% extends 'shared/base.html' %}
+
 <!DOCTYPE html>
 <html>
 
@@ -7,9 +8,12 @@
     <title>Library</title>
 </head>
 
+{% block content %}
 <body>
+
     <h1>Inventory Book</h1>
 
+<a href="{% url 'libraryapp:book_form' %}">Add Book to Inventory</a>
     {% if book.id is not None %}
         <form action="{% url 'libraryapp:book' book.id %}" method="post">
     {% else %}
@@ -50,6 +54,8 @@
         {% endif %}
 
     </form>
+    {% endblock %}
+
 </body>
 
 </html>
