@@ -1,45 +1,55 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <title>Bangazon</title>
-  </head>
-  <body>
+    <title>Library</title>
+</head>
+
+<body>
     <h1>Inventory Book</h1>
 
-
-    <form action="{% url 'libraryapp:books' %}" method="post">
-      {% csrf_token %}
-      <fieldset>
-          <label for="bookTitle">Title: </label>
-          <input id="bookTitle" type="text" name="bookTitle">
-      </fieldset>
-      <fieldset>
-          <label for="Author">Author: </label>
-          <input id="Author" type="text" name="Author">
-      </fieldset>
-      <fieldset>
-          <label for="YearPublished">Year of publication: </label>
-          <input id="YearPublished" type="number" name="YearPublished">
-      </fieldset>
-      <fieldset>
-          <label for="ISBNNumber">ISBN: </label>
-          <input id="ISBNNumber" type="text" name="ISBNNumber">
-      </fieldset>
-      <fieldset>
-          <label for="location">Library: </label>
-          <select id="location" type="text" name="location">
+    {% if book.id is not None %}
+        <form action="{% url 'libraryapp:book' book.id %}" method="post">
+    {% else %}
+        <form action="{% url 'libraryapp:books' %}" method="post">
+    {% endif %}
+        {% csrf_token %}
+        <fieldset>
+            <label for="bookTitle">Title: </label>
+            <input id="bookTitle" type="text" name="bookTitle" value="{{ book.bookTitle }}">
+        </fieldset>
+        <fieldset>
+            <label for="Author">Author: </label>
+            <input id="Author" type="text" name="Author" value="{{ book.Author }}">
+        </fieldset>
+        <fieldset>
+            <label for="YearPublished">Year of publication: </label>
+            <input id="YearPublished" type="number" name="YearPublished" value="{{ book.YearPublished }}">
+        </fieldset>
+        <fieldset>
+            <label for="ISBNNumber">ISBN: </label>
+            <input id="ISBNNumber" type="text" name="ISBNNumber" value="{{ book.ISBNNumber }}">
+        </fieldset>
+        <fieldset>
+            <label for="location">Library: </label>
+            <select id="location" type="text" name="location">
                 {% for library in all_libraries %}
-                    <option value="{{ library.id }}">{{ library.title }}</option>
+                <option {% if library.id == book.location_id %}selected{% endif %} value="{{ library.id }}">
+                    {{ library.bookTitle }}</option>
                 {% endfor %}
-          </select>
-      </fieldset>
+            </select>
+        </fieldset>
 
-      <input type="submit" value="Add It" />
+        {% if book.id is not None %}
+            <input type="hidden" name="actual_method" value="PUT">
+            <input type="submit" value="Update" />
+        {% else %}
+            <input type="submit" value="Create" />
+        {% endif %}
+
     </form>
+</body>
 
-        <input type="hidden" name="actual_method" value="DELETE">
-    <button>Delete</button>
-  </body>
 </html>
