@@ -1,5 +1,7 @@
 import sqlite3
 from django.shortcuts import render
+from django.urls import reverse
+from django.shortcuts import redirect
 from libraryapp.models import Librarian
 from libraryapp.models import model_factory
 from ..connection import Connection
@@ -36,3 +38,5 @@ def list_librarians(request):
     }
 
     return render(request, template_name, context)
+
+    return redirect(reverse('libraryapp:librarians'))
