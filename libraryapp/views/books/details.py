@@ -5,8 +5,27 @@ from django.contrib.auth.decorators import login_required
 from libraryapp.models import Book, Library
 from libraryapp.models import model_factory
 from ..connection import Connection
-from ..books.detail import get_book
 
+
+def get_book(book_id):
+    with sqlite3.connect(Connection.db_path) as conn:
+        conn.row_factory = model_factory(Book)
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        SELECT
+            b.id,
+            b.bookTitle,
+            b.ISBNNumber,
+            b.Author,
+            b.YearPublished,
+            b.librarian_id,
+            b.location_id
+        FROM libraryapp_book b
+        WHERE b.id = ?
+        """, (book_id,))
+
+        return db_cursor.fetchone()
 
 @login_required
 def book_details(request, book_id):
