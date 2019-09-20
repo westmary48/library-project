@@ -16,7 +16,7 @@ def get_library(library_id):
         SELECT
             l.id,
             l.title,
-            l.address,
+            l.address
         FROM libraryapp_library l
         WHERE l.id = ?
         """, (library_id,))
