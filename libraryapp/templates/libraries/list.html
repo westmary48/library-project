@@ -8,7 +8,7 @@
     <ol>
     {% for library in libraries %}
         <li>
-            <a href="{% url 'libraryapp:libraries' library.id %}">
+            <a href="{% url 'libraryapp:library' library.id %}">
                 {{ library.title }}
             </a>
             ({{ library.address }})

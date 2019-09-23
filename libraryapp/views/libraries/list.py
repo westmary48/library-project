@@ -16,24 +16,24 @@ def list_libraries(request):
             db_cursor = conn.cursor()
 
             db_cursor.execute("""
-            SELECT
-	            li.id library_id,
-	            li.title,
-	            li.address,
-	            b.id book_id,
-	            b.bookTitle,
-	            b.Author,
-	            b.YearPublished,
-	            b.ISBNNumber
-            FROM libraryapp_library li
-            JOIN libraryapp_book b ON li.id = b.location_id
-   """)
+                SELECT
+	                li.id library_id,
+	                li.title,
+	                li.address,
+	                b.id book_id,
+	                b.bookTitle,
+	                b.Author,
+	                b.YearPublished,
+	                b.ISBNNumber
+                FROM libraryapp_library li
+                JOIN libraryapp_book b ON li.id = b.location_id
+            """)
 
-            all_libraries = db_cursor.fetchall()
+            libraries = db_cursor.fetchall()
             library_groups = {}
 
             # Iterate the list of tuples
-            for (library, book) in all_libraries:
+            for (library, book) in libraries:
 
             # If the dictionary does have a key of the current
             # library's `id` value, add the key and set the value
@@ -49,7 +49,7 @@ def list_libraries(request):
                 print(library_groups)
 
 
-        template_name = 'library/list.html'
+        template_name = 'libraries/list.html'
 
         context = {
         'all_libraries': library_groups.values()
@@ -100,4 +100,6 @@ def create_library(cursor, row):
     # book built from the data in the current row of
     # the data set
     return (library, book,)
+
+
 

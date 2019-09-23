@@ -1,22 +1,35 @@
+{% extends 'shared/base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Books</title>
-  </head>
-  <body>
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'styles/books.css' %}" />
+{% endblock %}
+
+{% block content %}
     <h1>Books</h1>
 
-    <ol>
+    <dialog class="infoDialog">
+        <div class="infoDialog__message"></div>
+        <button class="closeDialog">Close</button>
+    </dialog>
+
+    <a href="{% url 'libraryapp:book_form' %}">Add Book to Inventory</a>
+
+    <ol class="books">
     {% for book in all_books %}
-      <li>
-        <a href="{% url 'libraryapp:book' book.id %}"> {{ book.bookTitle }} </a>
-        by {{book.Author}} published in {{book.YearPublished}}
-      </li>
+        <li class="book">
+            <a class="book__title" href="{% url 'libraryapp:book' book.id %}"> {{ book.bookTitle }}</a>
+            <div class="book__description">
+                by {{book.Author}} published in {{book.YearPublished}}
+            </div>
+                <button id="detail--{{ book.id }}">Details</button>
+        </li>
     {% endfor %}
     </ol>
-  </body>
-</html>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'scripts/books.js' %}"></script>
+{% endblock %}
 
 
