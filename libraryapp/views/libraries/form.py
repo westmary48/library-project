@@ -9,6 +9,7 @@ from ..connection import Connection
 @login_required
 def library_form(request):
     if request.method == 'GET':
-        template = 'library/form.html'
+        template = 'libraries/form.html'
+        context = {}
+        return render(request, template, context)
 
-        return render(request, template)
